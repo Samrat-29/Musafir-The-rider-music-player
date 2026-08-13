@@ -357,9 +357,11 @@ body {
 /* Desktop music surfaces stay small and out of the hero's main sightline. */
 .music-player-shell {
   top: auto;
-  right: clamp(28px, 4.5vw, 92px);
-  bottom: 4vh;
-  width: min(32vw, 480px);
+  right: clamp(16px, 2vw, 20px);
+  bottom: clamp(16px, 2vh, 20px);
+  width: min(calc(100vw - 32px), 360px);
+  padding-left: 0;
+  padding-right: 0;
   justify-content: flex-end;
 }
 
@@ -395,10 +397,11 @@ body {
 
   .music-player-shell {
     top: auto;
-    right: 0;
-    bottom: 5vh;
-    width: 100%;
-    justify-content: center;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    width: auto;
+    justify-content: flex-end;
   }
 
   .add-music-backdrop {
