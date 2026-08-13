@@ -1,0 +1,422 @@
+@import "tailwindcss";
+
+/* ─── Custom Properties ─── */
+:root {
+  --color-bg: #0a0a0a;
+  --color-surface: rgba(10, 10, 10, 0.65);
+  --color-surface-hover: rgba(20, 20, 20, 0.75);
+  --color-glass: rgba(15, 15, 15, 0.55);
+  --color-glass-strong: rgba(10, 10, 10, 0.8);
+  --color-text-primary: #f0ece6;
+  --color-text-secondary: rgba(240, 236, 230, 0.5);
+  --color-text-tertiary: rgba(240, 236, 230, 0.3);
+  --color-accent: rgba(200, 180, 150, 0.6);
+  --color-accent-warm: rgba(200, 170, 130, 0.4);
+  --color-border: rgba(240, 236, 230, 0.08);
+  --color-border-hover: rgba(240, 236, 230, 0.15);
+  --color-progress: rgba(240, 236, 230, 0.25);
+  --color-progress-active: rgba(240, 236, 230, 0.8);
+  --font-sans: 'Inter', 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Noto Serif Devanagari', 'Georgia', serif;
+  --backdrop-blur: 20px;
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─── Reset ─── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(240, 236, 230, 0.15);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(240, 236, 230, 0.25);
+}
+
+/* ─── Selection ─── */
+::selection {
+  background: rgba(200, 180, 150, 0.3);
+  color: var(--color-text-primary);
+}
+
+/* ─── Video Background ─── */
+.video-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.video-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.28) 0%,
+    rgba(0, 0, 0, 0.04) 22%,
+    rgba(0, 0, 0, 0.0)  50%,
+    rgba(0, 0, 0, 0.0)  70%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+  pointer-events: none;
+}
+
+/* ─── Glass Surface ─── */
+.glass {
+  background: var(--color-glass);
+  backdrop-filter: blur(var(--backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--backdrop-blur));
+  border: 1px solid var(--color-border);
+}
+
+.glass-strong {
+  background: var(--color-glass-strong);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid var(--color-border);
+}
+
+/* ─── Typography ─── */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+/* ─── Tracking ─── */
+.tracking-widest-custom {
+  letter-spacing: 0.25em;
+}
+
+.tracking-ultra {
+  letter-spacing: 0.4em;
+}
+
+/* ─── Progress Bar ─── */
+.progress-track {
+  height: 3px;
+  background: var(--color-progress);
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  transition: height 0.2s var(--transition-smooth);
+}
+
+.progress-track:hover {
+  height: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-progress-active);
+  border-radius: 2px;
+  position: relative;
+  transition: width 0.1s linear;
+}
+
+.progress-thumb {
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%) scale(0);
+  width: 10px;
+  height: 10px;
+  background: var(--color-text-primary);
+  border-radius: 50%;
+  transition: transform 0.2s var(--transition-smooth);
+}
+
+.progress-track:hover .progress-thumb {
+  transform: translateY(-50%) scale(1);
+}
+
+/* ─── Volume Slider ─── */
+.volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 3px;
+  background: var(--color-progress);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  background: var(--color-text-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s var(--transition-smooth);
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  background: var(--color-text-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+/* ─── Playlist Item ─── */
+.playlist-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background 0.3s var(--transition-smooth);
+}
+
+.playlist-item:hover {
+  background: var(--color-surface-hover);
+}
+
+.playlist-item.active {
+  background: rgba(200, 180, 150, 0.08);
+}
+
+.playlist-item.active .playlist-item-index {
+  color: var(--color-accent);
+}
+
+/* ─── Animations ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.2s var(--transition-smooth) forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s var(--transition-smooth) forwards;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 768px) {
+  .volume-slider {
+    width: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* ─── YouTube Player Container (hidden) ─── */
+.yt-player-container {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  left: -10000px;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+/* Main image logo: screen blending removes the supplied image's black backdrop
+   while preserving its original lettering, glow and proportions. */
+.musafir-logo {
+  position: fixed;
+  z-index: 41;
+  top: 14px;
+  left: 50%;
+  width: clamp(360px, 28vw, 540px);
+  aspect-ratio: 3.72 / 1;
+  pointer-events: none;
+  user-select: none;
+  transform: translateX(-50%);
+}
+
+.musafir-logo-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: screen;
+}
+
+.online-status {
+  position: absolute;
+  left: 1.5rem;
+  top: 1.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(240, 236, 230, 0.56);
+  font-family: 'Manrope', 'Inter', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+}
+
+.online-status-dot {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: #4ee58b;
+  box-shadow: 0 0 8px rgba(78, 229, 139, 0.82), 0 0 16px rgba(78, 229, 139, 0.35);
+}
+
+.online-status.offline .online-status-dot {
+  background: rgba(240, 236, 230, 0.35);
+  box-shadow: none;
+}
+
+/* Desktop music surfaces stay small and out of the hero's main sightline. */
+.music-player-shell {
+  top: auto;
+  right: clamp(28px, 4.5vw, 92px);
+  bottom: 4vh;
+  width: min(32vw, 480px);
+  justify-content: flex-end;
+}
+
+.add-music-backdrop {
+  background: rgba(0, 0, 0, 0.14);
+  backdrop-filter: none;
+}
+
+.add-music-panel {
+  position: fixed;
+  top: auto;
+  right: clamp(28px, 4.5vw, 92px);
+  bottom: calc(4vh + 184px);
+  width: min(42vw, 620px);
+  max-width: none;
+  min-height: 360px;
+  padding: 32px 36px;
+}
+
+@media (max-width: 768px) {
+  .online-status {
+    left: 1rem;
+    top: 1.25rem;
+    font-size: 0.56rem;
+  }
+  .musafir-logo {
+    top: 18px;
+    left: 50%;
+    width: clamp(180px, 52vw, 300px);
+    aspect-ratio: 3.72 / 1;
+    transform: translateX(-50%);
+  }
+
+  .music-player-shell {
+    top: auto;
+    right: 0;
+    bottom: 5vh;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .add-music-backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+  }
+
+  .add-music-panel {
+    position: fixed;
+    top: auto;
+    right: 16px;
+    bottom: calc(5vh + 170px);
+    left: 16px;
+    width: auto;
+    max-width: none;
+    max-height: calc(100vh - 205px);
+    min-height: 0;
+    overflow-y: auto;
+    padding: 2rem;
+  }
+}
